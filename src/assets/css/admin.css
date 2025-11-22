@@ -138,3 +138,43 @@ button:hover { background-color: #a8682e; }
 .btn-secondary:hover {
     background-color: #5e5957;
 }
+
+/* ========= LAYOUT FIX FOOTER ========= */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+/* ========= FOOTER ========= */
+footer {
+    margin-top: 40px;
+    padding: 15px 0;
+    background-color: #8b4513;
+    color: white;
+    text-align: center;
+}
+
+/* ========= HEADER EDIT PRODUK ========= */
+.header-edit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.header-edit .back-btn {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
