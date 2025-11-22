@@ -1,0 +1,140 @@
+/* ========= RESET ========= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ========= BODY ========= */
+body {
+    background-color: #f6f2ec;
+    padding: 30px;
+    color: #4a3f35;
+}
+
+/* ========= TITLE ========= */
+h2 {
+    margin-bottom: 20px;
+    color: #8b4513;
+}
+
+/* ========= BUTTON ========= */
+.btn {
+    display: inline-block;
+    padding: 8px 14px;
+    background-color: #8b4513;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.btn:hover { background-color: #a8682e; }
+
+.btn-danger { background-color: #c0392b; }
+.btn-danger:hover { background-color: #e74c3c; }
+
+/* ========= TABLE ========= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+th {
+    background-color: #8b4513;
+    color: white;
+    padding: 12px;
+    font-size: 15px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #e6dcd1;
+    vertical-align: middle;
+}
+
+tr:hover { background-color: #f1e6d8; }
+
+/* ========= PREVIEW GAMBAR DI TABLE ========= */
+.table-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #d9d0c7;
+}
+
+/* ========= FORM ========= */
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 420px;
+}
+
+/* ========= FORM EDIT ========= */
+.form-edit {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 520px;
+    margin: auto;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.15);
+}
+
+.form-edit h3 {
+    color: #8b4513;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.preview-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+/* ========= INPUT ========= */
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin: 7px 0 15px;
+    border: 1px solid #c8b8a9;
+    border-radius: 6px;
+}
+
+/* ========= BUTTON FORM EDIT ========= */
+button {
+    padding: 10px 16px;
+    background-color: #8b4513;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover { background-color: #a8682e; }
+
+.edit-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.btn-secondary {
+    background-color: #7e7a78;
+}
+
+.btn-secondary:hover {
+    background-color: #5e5957;
+}
