@@ -13,10 +13,10 @@
     <!-- Tombol Kembali ke Halaman Index Admin -->
     <a href="index.php" 
        class="absolute left-6 bg-amber-700 hover:bg-amber-600 px-3 py-1 rounded text-sm shadow transition">
-        ← Kembali
+        ←
     </a>
 
-    <h1 class="text-2xl font-bold mx-auto">🍞 Edit Produk</h1>
+    <h1 class="text-2xl font-bold mx-auto">Update Product</h1>
 
     <span class="font-semibold absolute right-6">👤 Admin</span>
 </header>

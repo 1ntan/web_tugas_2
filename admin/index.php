@@ -2,10 +2,63 @@
 // Koneksi ke database
 include __DIR__ . '/../database/koneksi.php';
 
-// Judul halaman (opsional)
+// Judul halaman
 $title = "Daftar Produk Roti";
 
-// Header layout
+/*
+|--------------------------------------------------------------------------
+| MODE PREVIEW USER (Frontend)
+|--------------------------------------------------------------------------
+*/
+if (isset($_GET['preview']) && $_GET['preview'] === 'user') {
+
+    include __DIR__ . '/layout/header_user.php';
+
+    // Ambil data produk
+    $query = mysqli_query($koneksi, "SELECT * FROM produk ORDER BY id DESC");
+    ?>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <?php while ($row = mysqli_fetch_assoc($query)): ?>
+
+            <div class="bg-white p-4 shadow rounded-lg">
+
+                <?php 
+                $imgPath = "../uploads/" . $row['gambar'];
+
+                if ($row['gambar'] != "" && file_exists(__DIR__ . "/../uploads/" . $row['gambar'])) {
+                    echo "<img src='$imgPath' class='w-full h-48 object-cover rounded'>";
+                } else {
+                    echo "<div class='w-full h-48 bg-gray-200 flex items-center justify-center rounded text-gray-500'>
+                            Tidak ada gambar
+                          </div>";
+                }
+                ?>
+
+                <h3 class="text-lg font-bold mt-3 text-amber-800"><?= $row['nama'] ?></h3>
+
+                <p class="text-gray-700">Harga: 
+                    <b>Rp <?= number_format($row['harga'], 0, ',', '.') ?></b>
+                </p>
+
+                <p class="text-gray-600 text-sm">Stok: <?= $row['stok'] ?></p>
+                <p class="text-gray-600 text-sm">Kategori: <?= $row['kategori'] ?></p>
+
+            </div>
+
+        <?php endwhile; ?>
+    </div>
+
+    <?php
+    include __DIR__ . '/layout/footer.php';
+    exit;
+}
+
+/*
+|--------------------------------------------------------------------------
+| MODE ADMIN
+|--------------------------------------------------------------------------
+*/
 include __DIR__ . '/layout/header.php';
 ?>
 
@@ -14,11 +67,23 @@ include __DIR__ . '/layout/header.php';
 <!-- Tombol Tambah -->
 <a href="tambah.php" 
    class="bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-700 transition">
-   + Tambah Produk
+   + Add Product
 </a>
 
+<!-- Form Search -->
+<form method="GET" class="mt-4 mb-4 flex items-center gap-3">
+    <input 
+        type="text" 
+        name="search" 
+        placeholder="Search.." 
+        value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>"
+        class="border px-3 py-2 rounded w-64"
+    >
+
+</form>
+
 <!-- Tabel Produk -->
-<table class="w-full mt-6 border bg-white shadow text-sm">
+<table class="w-full mt-2 border bg-white shadow text-sm">
     <tr class="bg-amber-800 text-white">
         <th class="p-3 text-left">ID</th>
         <th class="p-3 text-left">Gambar</th>
@@ -30,26 +95,38 @@ include __DIR__ . '/layout/header.php';
     </tr>
 
     <?php
-    // Ambil data dari database
-    $query = mysqli_query($koneksi, "SELECT * FROM produk ORDER BY id DESC");
+    // ---------------------------
+    // SEARCH LOGIC
+    // ---------------------------
 
-    // Jika data kosong
+    if (isset($_GET['search']) && $_GET['search'] !== '') {
+        $keyword = mysqli_real_escape_string($koneksi, $_GET['search']);
+
+        $query = mysqli_query($koneksi, "
+            SELECT * FROM produk 
+            WHERE nama LIKE '%$keyword%'
+            ORDER BY id DESC
+        ");
+    } else {
+        $query = mysqli_query($koneksi, "SELECT * FROM produk ORDER BY id DESC");
+    }
+
+
+    // Jika tidak ada data
     if (mysqli_num_rows($query) === 0) {
         echo '
         <tr>
             <td colspan="7" class="p-4 text-center text-gray-500">
-                Belum ada produk.
+                Data tidak ditemukan.
             </td>
         </tr>';
     }
 
-    // Loop data
+    // Tampilkan data produk
     while ($row = mysqli_fetch_assoc($query)) {
 
-        // Path gambar
         $imgPath = "../uploads/" . $row['gambar'];
 
-        // Cek apakah file ada
         if ($row['gambar'] != "" && file_exists(__DIR__ . "/../uploads/" . $row['gambar'])) {
             $imgTag = "<img src='$imgPath' class='w-16 h-16 object-cover rounded shadow'>";
         } else {
@@ -65,24 +142,24 @@ include __DIR__ . '/layout/header.php';
             <td class='p-3'>{$row['stok']}</td>
             <td class='p-3'>{$row['kategori']}</td>
             <td class='p-3 space-x-2'>
+
                 <a href='edit.php?id={$row['id']}'
                    class='bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition'>
-                    Edit
+                    Update
                 </a>
 
                 <a href='hapus.php?id={$row['id']}'
                    onclick='return confirm(\"Apakah yakin ingin menghapus?\")'
                    class='bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition'>
-                    Hapus
+                    Delete
                 </a>
+
             </td>
-        </tr>
-        ";
+        </tr>";
     }
     ?>
 </table>
 
 <?php 
-// Footer layout
 include __DIR__ . '/layout/footer.php';
 ?>

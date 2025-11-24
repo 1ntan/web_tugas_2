@@ -92,7 +92,7 @@ if (isset($_POST['submit'])) {
             </div>
 
             <div class="flex justify-end mt-6 space-x-4">
-                <button type="submit" name="submit" class="bg-amber-800 text-white px-6 py-2 rounded-lg hover:bg-amber-700 shadow">💾 Simpan</button>
+                <button type="submit" name="submit" class="bg-amber-800 text-white px-6 py-2 rounded-lg hover:bg-amber-700 shadow">save</button>
             </div>
 
         </form>
